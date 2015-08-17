@@ -1,7 +1,7 @@
 # vim:set ft=dockerfile:
 FROM debian:7
 
-MAINTAINER Junaid Loonat <junaid@loonat.net>
+MAINTAINER Junaid Loonat <junaid@goboxen.com>
 
 RUN buildDeps1='ca-certificates wget' \
 	&& set -x \
@@ -35,7 +35,8 @@ RUN buildDeps2='ca-certificates curl gcc make libssl-dev' \
 	&& rm -r /usr/src/spiped \
 	&& apt-get purge -y --auto-remove $buildDeps2 \
 	&& mkdir ${SPIPED_KEYDIR} \
-	&& useradd -m spiped-user
+	&& groupadd -r spiped-user \
+	&& useradd -r -g spiped-user spiped-user
 
 VOLUME $SPIPED_KEYDIR
 
